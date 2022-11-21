@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useContext, useState } from 'react';
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FormInput from '../components/FormInput';
@@ -11,7 +11,7 @@ export default function LoginScreen({ navigation }) {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	const {login} = useContext(AuthContext)
+	const { login, googleLogin, fbLogin } = useContext(AuthContext)
 	return (
 		<View style={styles.container}>
 			<Image source={require('../assets/onboarding.webp')} style={styles.logo}></Image>
@@ -34,7 +34,7 @@ export default function LoginScreen({ navigation }) {
 			/>
 			<FormButton
 				buttonTitle='Sign In'
-				onPress={() => login(email,password)}
+				onPress={() => login(email, password)}
 			/>
 
 			<TouchableOpacity
@@ -44,21 +44,25 @@ export default function LoginScreen({ navigation }) {
 				<Text style={styles.navButtonText}>Forgot Password?</Text>
 			</TouchableOpacity>
 
-			<SocialButton
-				buttonTitle='Sign In with Facebook'
-				btnType='facebook'
-				color='#4867aa'
-				backgroundColor='#e6eaf4'
-				onPress={() => alert('fb')}
-			/>
+			{Platform.OS === 'android' ? (
+				<View>
+					<SocialButton
+						buttonTitle='Sign In with Facebook'
+						btnType='facebook'
+						color='#4867aa'
+						backgroundColor='#e6eaf4'
+						onPress={() => fbLogin()}
+					/>
 
-			<SocialButton
-				buttonTitle='Sign In with Google'
-				btnType='google'
-				color='#de4d41'
-				backgroundColor='#f5e7ea'
-				onPress={() => alert('gg')}
-			/>
+					<SocialButton
+						buttonTitle='Sign In with Google'
+						btnType='google'
+						color='#de4d41'
+						backgroundColor='#f5e7ea'
+						onPress={() => googleLogin()}
+					/>
+				</View>
+			) : null}
 
 			<TouchableOpacity
 				style={styles.forgotButton}
