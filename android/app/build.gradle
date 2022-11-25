@@ -83,7 +83,7 @@ project.ext.react = [
     enableHermes: true,  // clean and rebuild if changing
 ]
 project.ext.vectoricons = [
-  iconFontNames: [ 'AntDesign.ttf','Entypo.ttf','EvilIcons.ttf','Ionicons.ttf','MaterialIcons.ttf', 'MaterialCommunityIcons.ttf','FontAwesome.ttf' ] 
+  iconFontNames: [ 'AntDesign.ttf','Entypo.ttf','EvilIcons.ttf','Feather.ttf','Ionicons.ttf','MaterialIcons.ttf', 'MaterialCommunityIcons.ttf','FontAwesome.ttf', 'FontAwesome5_Brands.ttf'] 
 ]
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 apply from: "../../node_modules/react-native/react.gradle"
@@ -145,7 +145,7 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
-
+        vectorDrawables.useSupportLibrary = true
         if (isNewArchitectureEnabled()) {
             // We configure the CMake build only if you decide to opt-in for the New Architecture.
             externalNativeBuild {
